@@ -11,9 +11,6 @@
 ,"select_one enumerator","inquirer_choice","Name of the enumerator:",,,,"search('enumerators')",,,,,,,
 ,"text","inquirer_text","Name of the enumerator:",,,"${inquirer_choice}=77",,,,,,,,
 ,"calculate","inquirer",,,"true",,,,,,"coalesce(${inquirer_text}, ${inquirer_choice})",,,
-,"select_one language","language","Please select language you are using to complete this survey","**NOTE**: This is the language shown on the device, not the language you will use to speak to the farmer.
-
-We need this information to show options for some questions in the appropriate language.","TRUE",,"quick search('languages')"," ",,,,,,
 ,"select_multiple steps","steps_select","Which steps are you conducting in this visit?",,,,,,,,,,,
 ,"end_group","survey_start",,,,,,,,,,,,
 ,"begin_group","reg","Location",,,,,,,,,,,
@@ -85,7 +82,7 @@ IF FARMER DOES NOT WISH TO ANSWER, PLEASE ENTER -99","true","${hh_children} > 0"
 ,"end_group","context",,,,,,,,,,,,
 ,"begin_group","productive_act_grp","Productive Activities",,,,,,,,,,,
 ,"note","prod_act","###Productive activities",,,,,,,,,,,
-,"select_one crop_area_unit","area_unit","Please select unit of measurement for land",,"TRUE",,"search('units', 'matches', 'language', ${language}, 'unit_type_name', 'area') ",,,,,,,
+,"select_one crop_area_unit","area_unit","Please select unit of measurement for land",,"TRUE",,"search('units', 'matches', 'unit_type_name', 'area') ",,,,,,,
 ,"decimal","area","0.8.a Total area under agricultural production (${area_unit_label})","IF FARMER DOES NOT WISH TO ANSWER, PLEASE ENTER -99","true",,,,". >= 0 or .=-99","This number must be greater than or equal to zero.
 
 Or equal to -99 if dont know/refused to answer",,,,
@@ -162,32 +159,32 @@ Or equal to -99 if dont know/refused to answer",,,,
 ,"begin_group","step1","Step 1 - Characterisation of agroecological transitions",,,"selected(${steps_select}, '1') and ${consent}=1",,,,,,,,
 ,"note","caet","##Step 1 - Characterisation of agroecological transitions",,,,,,,,,,,
 ,"note","diversity","###DIVERSITY",,,,,"divlogo.png",,,,,,
-,"select_one crops","crops","1.1 - Crops diversity","${crops_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'crops')",,,,,,,
-,"select_one animals","animals","1.2 - Animals diversity (including fish and insects)","${animals_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'animals')",,,,,,,
-,"select_one trees","trees","1.3 - Trees diversity (including other perennials)","${trees_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'trees')",,,,,,,
-,"select_one div_activ","div_activ","1.4 - Diversity of activities generating income","${div_activ_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'div_activ')",,,,,,,
+,"select_one crops","crops","1.1 - Crops diversity","${crops_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'crops')",,,,,,,
+,"select_one animals","animals","1.2 - Animals diversity (including fish and insects)","${animals_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'animals')",,,,,,,
+,"select_one trees","trees","1.3 - Trees diversity (including other perennials)","${trees_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'trees')",,,,,,,
+,"select_one div_activ","div_activ","1.4 - Diversity of activities generating income","${div_activ_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'div_activ')",,,,,,,
 ,"calculate","sum_diversity","Sum diversity",,,,,,,,"number(${crops}) + number(${animals}) + number(${trees}) + number(${div_activ})",,,
 ,"calculate","stand_diversity","Standardized diversity",,,,,,,,"round((( ${sum_diversity} div 16 ) * 100), 2)",,,
 ,"note","synergies","##SYNERGIES",,,,,"synlogo.png",,,,,,
-,"select_one cla_int","cla_int","2.1 - Crop-livestock integration",,"TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'cla_int')",,,,,,,
-,"select_one s_plant","s_plant","2.2 - Soil management system",,"TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  's_plant')",,,,,,,
+,"select_one cla_int","cla_int","2.1 - Crop-livestock integration",,"TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'cla_int')",,,,,,,
+,"select_one s_plant","s_plant","2.2 - Soil management system",,"TRUE",,"quick search('scales', 'matches', 'xlsform_name',  's_plant')",,,,,,,
 ,"select_one tree_int","tree_int","2.3 - Integration of trees (agroforestry, silvopastoralism, agrosilvopastoralism)","Consider also communal forest areas.
 
-${crops_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'tree_int')",,,,,,,
+${crops_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'tree_int')",,,,,,,
 ,"select_one connectivity","connectivity","2.4 - Connectivity between elements of the agroecosystem and the landscape","Consider the productive systems as well as the surrounding areas, the semi-natural environments and the potential zones of ecological compensation.
 
 
 
-${connectivity_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'connectivity')",,,,,,,
+${connectivity_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'connectivity')",,,,,,,
 ,"calculate","sum_syn","Sum synergies",,,,,,,,"number(${cla_int}) + number(${s_plant}) + number(${tree_int}) + number(${connectivity})",,,
 ,"calculate","stand_syn","Standardized synergies",,,,,,,,"round((( ${sum_syn} div 16 ) * 100), 2)",,,
 ,"note","recycling","###RECYCLING",,,,,"recylogo.png",,,,,,
-,"select_one rec_biomass","rec_biomass","3.1 - Recycling of biomass and nutrients","${rec_biomass_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'rec_biomass')",,,,,,,
-,"select_one waste","waste","3.2 - Waste production and management","${waste_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'waste')",,,,,,,
+,"select_one rec_biomass","rec_biomass","3.1 - Recycling of biomass and nutrients","${rec_biomass_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'rec_biomass')",,,,,,,
+,"select_one waste","waste","3.2 - Waste production and management","${waste_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'waste')",,,,,,,
 ,"select_one water","water","3.3 - Water recycling and saving","Take into account the equipment available for water saving, the techniques implmented for water retention and conservation into the soil, as well as the kind of crops grown (if they need a lot of water or a normal quantity).
 
-${water_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'water')",,,,,,,
-,"select_one ren_energy","ren_energy","3.4 - Energy reduction and renewable energy","${ren_energy_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'ren_energy')",,,,,,,
+${water_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'water')",,,,,,,
+,"select_one ren_energy","ren_energy","3.4 - Energy reduction and renewable energy","${ren_energy_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'ren_energy')",,,,,,,
 ,"calculate","sum_rec","Sum recycling",,,,,,,,"number(${rec_biomass}) + number(${waste}) + number(${water}) + number(${ren_energy})",,,
 ,"calculate","stand_rec","Standardized recycling",,,,,,,,"round((( ${sum_rec} div 16 ) * 100), 2)",,,
 ,"note","efficiency","##EFFICIENCY",,,,,"efflogo.png",,,,,,
@@ -197,11 +194,11 @@ ${water_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', 
  
  Resources provided for free from communal lands are not considered external.
 
-${ext_inp_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'ext_inp')",,,,,,,
-,"select_one soil_fert","soil_fert","4.2 - Management of soil fertility","${soil_fert_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'soil_fert')",,,,,,,
+${ext_inp_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'ext_inp')",,,,,,,
+,"select_one soil_fert","soil_fert","4.2 - Management of soil fertility","${soil_fert_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'soil_fert')",,,,,,,
 ,"select_one pest_dis","pest_dis","4.3 - Management of pests & diseases","In the case of animals drugs, they must be considered only if they are used for other goals than healing the animals when they are sick.
 
-${pest_dis_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'pest_dis')",,,,,,,
+${pest_dis_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'pest_dis')",,,,,,,
 ,"calculate","emergingefficiency","4.4 - Emerging efficiency from good practices",,,,,,,,"round(((${sum_diversity}+${sum_syn}+${sum_rec}) div 12), 2)",,,
 ,"note","emergingefficiency_note","**4.4 - Emerging efficiency from good practices**","This index is the average score for the elements of Diversity, Synergies, and Efficiency already assessed.
 
@@ -210,8 +207,8 @@ Energing Efficiency score = ${emergingefficiency}",,,,,,,,,,
 ,"calculate","sum_eff","Sum Efficiency",,,,,,,,"number(${ext_inp}) + number(${soil_fert}) + number(${pest_dis}) + number(${emergingefficiency})",,,
 ,"calculate","stand_eff","Standardized Efficiency",,,,,,,,"round((( ${sum_eff} div 16 ) * 100), 2)",,,
 ,"note","resilience","###RESILIENCE",,,,,"reslogo.png",,,,,,
-,"select_one vuln","vuln","5.1 - Existence of social mechanisms to reduce vulnerability",,"TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'vuln')",,,,,,,
-,"select_one indebt","indebt","5.2 - Environmental resilience and capacity to adapt to climate change",,"TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'indebt')",,,,,,,
+,"select_one vuln","vuln","5.1 - Existence of social mechanisms to reduce vulnerability",,"TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'vuln')",,,,,,,
+,"select_one indebt","indebt","5.2 - Environmental resilience and capacity to adapt to climate change",,"TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'indebt')",,,,,,,
 ,"calculate","averdiv","5.3 - Emerging resilience from diversity",,,,,,,,"round((${sum_diversity} div 4), 2)",,,
 ,"note","averagediv","**5.3 - Emerging resilience from diversity**","This index is the average score for the element _**Diversity**_ already assessed.
 
@@ -225,45 +222,45 @@ Emerging resilence from self-sufficiency and empowerment = ${averself-suff-empow
 ,"calculate","sum_res","Sum resilience",,,,,,,,"number(number(${vuln}) + number(${indebt}) + ${averdiv} + ${averself-suff-empowerment} )",,,
 ,"calculate","stand_res","Standardized resilience",,,,,,,,"round((( ${sum_res} div 16 ) * 100), 2)",,,
 ,"note","cultfood","###CULTURE & FOOD TRADITIONS",,,,,"cultlogo.png",,,,,,
-,"select_one diet","diet","6.1 - Appropriate diet and nutrition awareness","${diet_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'diet')",,,,,,,
-,"select_one food-self-suff","food-self-suff","6.2 - Food self-sufficiency","${food-self-suff_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'food-self-suff')",,,,,,,
-,"select_one food-heritage","food-heritage","6.3 - Local and traditional food heritage","${food-heritage_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'food-heritage')",,,,,,,
-,"select_one seeds_breeds","seeds_breeds","6.4 - Management of seeds and breeds","${seeds_breeds_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'seeds_breeds')",,,,,,,
+,"select_one diet","diet","6.1 - Appropriate diet and nutrition awareness","${diet_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'diet')",,,,,,,
+,"select_one food-self-suff","food-self-suff","6.2 - Food self-sufficiency","${food-self-suff_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'food-self-suff')",,,,,,,
+,"select_one food-heritage","food-heritage","6.3 - Local and traditional food heritage","${food-heritage_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'food-heritage')",,,,,,,
+,"select_one seeds_breeds","seeds_breeds","6.4 - Management of seeds and breeds","${seeds_breeds_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'seeds_breeds')",,,,,,,
 ,"calculate","sum_cultfood","Sum culture & food tradition",,,,,,,,"number(${diet}) + number(${food-self-suff}) + number(${food-heritage}) + number(${seeds_breeds})",,,
 ,"calculate","stand_cultfood","Standardized culture & food tradition",,,,,,,,"round((( ${sum_cultfood} div 16 ) * 100), 2)",,,
 ,"note","cocrea","###CO-CREATION & SHARING OF KNOWLEDGE",,,,,"cocrlogo.png",,,,,,
 ,"select_one ae_know","ae_know","7.1 - Access to agroecological knowledge and interest of producers in agroecology","Agroecological knowledge and practices may also be called in some other ways, and producers may know and apply them without knowing the word ""agroecology"". Focus on the actual practices and knowledge for the evaluation, and not on the formal knowledge of ""agroecology"" as a science.
 
-${ae_know_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'ae_know')",,,,,,,
+${ae_know_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'ae_know')",,,,,,,
 ,"select_one platforms","platforms","7.2 - Social mechanisms for the horizontal creation and transfer of knowledge and good practices","Formal or informal organizations, farmer field schools, regular meetings, trainings, etc.
 
 
-${platforms_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'platforms')",,,,,,,
-,"select_one partic_orgs","partic_orgs","7.3 - Participation of producers in networks and grassroot organizations",,"TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'partic_orgs')",,,,,,,
+${platforms_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'platforms')",,,,,,,
+,"select_one partic_orgs","partic_orgs","7.3 - Participation of producers in networks and grassroot organizations",,"TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'partic_orgs')",,,,,,,
 ,"calculate","sum_cocrea","Sum co-creation and sharing of knowledge",,,,,,,,"number(${ae_know}) + number(${platforms}) + number(${partic_orgs})",,,
 ,"calculate","stand_cocrea","Standardized co-creation and sharing of knowledge",,,,,,,,"round((( ${sum_cocrea} div 12 ) * 100), 2)",,,
 ,"note","human","###HUMAN & SOCIAL VALUES",,,,,"humlogo.png",,,,,,
-,"select_one women","women","8.1 - Women's empowerment","${women_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'women')",,,,,,,
-,"select_one labour","labour","8.2 - Labour (productive conditions, social inequalities)","${labour_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'labour')",,,,,,,
-,"select_one youth","youth","8.3 - Motivation in agricultural work and continuity of family farming","${youth_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'youth')",,,,,,,
-,"select_one animalwel","animalwel","8.4 - Animal welfare [if applicable]","${animalwel_interpretation}",,,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'animalwel')",,,,,,,
+,"select_one women","women","8.1 - Women's empowerment","${women_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'women')",,,,,,,
+,"select_one labour","labour","8.2 - Labour (productive conditions, social inequalities)","${labour_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'labour')",,,,,,,
+,"select_one youth","youth","8.3 - Motivation in agricultural work and continuity of family farming","${youth_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'youth')",,,,,,,
+,"select_one animalwel","animalwel","8.4 - Animal welfare [if applicable]","${animalwel_interpretation}",,,"quick search('scales', 'matches', 'xlsform_name',  'animalwel')",,,,,,,
 ,"calculate","coalanwel",,,,,,,,,"coalesce(${animalwel}, 5)",,,
 ,"calculate","sum_human","Sum human and social values",,,"${coalanwel}=5",,,,,"number(${women}) + number(${labour}) + number(${youth})",,,
 ,"calculate","stand_human","Standardized human and social values",,,"${coalanwel}=5",,,,,"round((( ${sum_human} div 12 ) * 100), 2)",,,
 ,"calculate","sum_human1","Sum human and social values",,,"${coalanwel}!=5",,,,,"number(${women}) + number(${labour}) + number(${youth}) + number(${animalwel})",,,
 ,"calculate","stand_human1","Standardized human and social values",,,"${coalanwel}!=5",,,,,"round((( ${sum_human1} div 16 ) * 100), 2)",,,
 ,"note","circular","###CIRCULAR & SOLIDARITY ECONOMY",,,,,"circlogo.png",,,,,,
-,"select_one mkt_local","mkt_local","9.1 - Products and services marketed locally (or with fair trade)",,"TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'mkt_local')",,,,,,,
-,"select_one networks","networks","9.2 - Networks of producers, relationship with consumers and presence of intermediaries","${networks_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'networks')",,,,,,,
+,"select_one mkt_local","mkt_local","9.1 - Products and services marketed locally (or with fair trade)",,"TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'mkt_local')",,,,,,,
+,"select_one networks","networks","9.2 - Networks of producers, relationship with consumers and presence of intermediaries","${networks_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'networks')",,,,,,,
 ,"select_one local_fs","local_fs","9.3 - Local sourcing and circularity","Take into account the local value chains of food and other agricultural production, as well as the possibility of transforming the products locally.
 
-${local_fs_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'local_fs')",,,,,,,
+${local_fs_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'local_fs')",,,,,,,
 ,"calculate","sum_circular","Sum circular & solidarity economy",,,,,,,,"number(${mkt_local}) + number(${networks}) + number(${local_fs})",,,
 ,"calculate","stand_circular","Standardized circular & solidarity economy",,,,,,,,"round((( ${sum_circular} div 12 ) * 100), 2)",,,
 ,"note","resp_gov","###RESPONSIBLE GOVERNANCE",,,,,"respologo.png",,,,,,
-,"select_one prod_empow","prod_empow","10.1 - Producers' empowerment","${prod_empow_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'prod_empow')",,,,,,,
-,"select_one prod_orgs","prod_orgs","10.2 - Producers' organizations and associations","${prod_orgs_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'prod_orgs')",,,,,,,
-,"select_one partic_prod","partic_prod","10.3 - Inclusive decision-making processes","${partic_prod_interpretation}","TRUE",,"quick search('scales', 'matches', 'language', ${language}, 'xlsform_name',  'partic_prod')",,,,,,,
+,"select_one prod_empow","prod_empow","10.1 - Producers' empowerment","${prod_empow_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'prod_empow')",,,,,,,
+,"select_one prod_orgs","prod_orgs","10.2 - Producers' organizations and associations","${prod_orgs_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'prod_orgs')",,,,,,,
+,"select_one partic_prod","partic_prod","10.3 - Inclusive decision-making processes","${partic_prod_interpretation}","TRUE",,"quick search('scales', 'matches', 'xlsform_name',  'partic_prod')",,,,,,,
 ,"calculate","sum_respgov","Sum responsible governance",,,,,,,,"number(${prod_empow}) + number(${prod_orgs}) + number(${partic_prod})",,,
 ,"calculate","stand_respgov","Standardized responsible governance",,,,,,,,"round((( ${sum_respgov} div 12 ) * 100), 2)",,,
 ,"begin_group","caet_score_reports","Summary of Step 1",,,,"field-list",,,,,,,
@@ -341,7 +338,7 @@ ${local_fs_interpretation}","TRUE",,"quick search('scales', 'matches', 'language
 ,"begin_group","step2","Step 2 - Core criteria of performance",,,"(selected(${steps_select}, '2') or selected(${steps_select}, '3')) and ${consent}=1",,,,,,,,
 ,"begin_group","step2_units","Introduction",,,"selected(${steps_select}, '2')","field-list",,,,,,,
 ,"note","step2_title","## Step 2 - Core criteria of performance",,,,,,,,,,,
-,"select_one crop_area_unit","area_unit2","Please select unit of measurement for land to be used in this survey",,,"not(selected(${steps_select},'1'))","search('units', 'matches', 'language', ${language}, 'unit_type_name', 'area') ",,,,,,,
+,"select_one crop_area_unit","area_unit2","Please select unit of measurement for land to be used in this survey",,,"not(selected(${steps_select},'1'))","search('units', 'matches', 'unit_type_name', 'area') ",,,,,,,
 ,"calculate","area_unit_ha_conversion2",,,,,,,,,"pulldata('units', 'conversion_rate', 'language_unit_id', ${area_unit})",,,
 ,"calculate","area_unit_label2",,,,,,,,,"pulldata('units', 'name', 'language_unit_id', ${area_unit})",,,
 ,"calculate","area_unit_label2_english",,,,,,,,,"pulldata('units', 'name_english', 'language_unit_id', ${area_unit})",,,
@@ -412,7 +409,7 @@ IF NO crops are grown, please select the 'none' option","TRUE",,"autocomplete",,
 ,"calculate","cname_id",,,,,,,,,"selected-at(${cropsnum}, ${crop_num}-1)",,,
 ,"calculate","cname_label",,,,,,,,,"jr:choice-name(${cname_id}, '${cropsnum}')",,,
 ,"text","other_crop","Specify other crop/tree:",,"TRUE","${cname_id} = 7777","0",,,,,,,
-,"select_one crop_weight_unit","c_wunit","Please select unit of measurement for ${cname_label}",,"TRUE",,"search('units', 'matches', 'language', ${language}, 'unit_type_name', 'weight') ",,,,,,,
+,"select_one crop_weight_unit","c_wunit","Please select unit of measurement for ${cname_label}",,"TRUE",,"search('units', 'matches', 'unit_type_name', 'weight') ",,,,,,,
 ,"decimal","cprod","Total production:","IF FARMER DOES NOT WISH TO ANSWER, PLEASE ENTER -99","TRUE",,,,".>=0 or .=-99","This number must be greater than or equal to zero. 
 
 Or equal to -99 if dont know/refused to answer",,,,
