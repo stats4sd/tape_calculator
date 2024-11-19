@@ -78,7 +78,7 @@ caet_culture <- function(){
   Culture <- Culture %>%
     rowwise() %>%
     mutate(cultf_sum = sum(c(diet, food_self_suff, food_heritage, seeds_breeds),na.rm = TRUE),
-           cultf_score = round((cultf_sum/12)*100,6))
+           cultf_score = round((cultf_sum/16)*100,6))
   return(Culture)
 }
 
@@ -195,7 +195,7 @@ step2_SoilHealth <- function(){
   SoilHealth <- SoilHealth %>%
     rowwise() %>%
     mutate(soil_health = mean(c(structure,compaction,depth,residues,color,water_ret,cover,erosion,invertebrates,microbio),na.rm = T)) %>%
-    mutate(soil_health = (soil_health - 1) * 25)
+    mutate(soil_health = (soil_health/5* 100))
   return(SoilHealth)
 }
 
@@ -582,13 +582,13 @@ step2_YouthEmploymentEmigration <- function(){
     mutate(y_good_perc = y_good_sum*100/ymembers,
            y_med_perc = y_med_sum*100/ymembers,
            y_bad_perc = y_bad_sum*100/ymembers) %>% 
-    mutate(youth_employ = (y_good_perc + 0.5*y_med_perc)/1.5) %>%
+    mutate(youth_employ = (y_good_perc + 0.5*y_med_perc)) %>%
     # Emigration score
     mutate(g1_perc = g1_sum/ymembers*100,
            g2_perc = g2_sum/ymembers*100,
            g3_perc = g3_sum/ymembers*100,
            g4_perc = g4_sum/ymembers*100) %>% 
-    mutate(youth_emigr = (g1_perc + 0.5*g3_perc + 0.5*g4_perc)/2) %>%
+    mutate(youth_emigr = (g1_perc + 0.5*g3_perc + 0.5*g4_perc)) %>%
     # Total youth score
     rowwise() %>%
     mutate(youth_score = mean(c(youth_employ , youth_emigr),na.rm = T)) %>%
@@ -623,13 +623,13 @@ step2_YouthEmploymentEmigration <- function(){
     mutate(y_good_perc = y_good_sum*100/ymembers,
            y_med_perc = y_med_sum*100/ymembers,
            y_bad_perc = y_bad_sum*100/ymembers) %>% 
-    mutate(youth_employ = (y_good_perc + 0.5*y_med_perc)/1.5) %>%
+    mutate(youth_employ = (y_good_perc + 0.5*y_med_perc)) %>%
     # Emigration score
     mutate(g1_perc = g1_sum/ymembers*100,
            g2_perc = g2_sum/ymembers*100,
            g3_perc = g3_sum/ymembers*100,
            g4_perc = g4_sum/ymembers*100) %>% 
-    mutate(youth_emigr = (g1_perc + 0.5*g3_perc + 0.5*g4_perc)/2) %>%
+    mutate(youth_emigr = (g1_perc + 0.5*g3_perc + 0.5*g4_perc)) %>%
     # Total youth score
     rowwise() %>%
     mutate(youth_score_male = mean(c(youth_employ , youth_emigr),na.rm = T)) %>%
@@ -663,13 +663,13 @@ step2_YouthEmploymentEmigration <- function(){
     mutate(y_good_perc = y_good_sum*100/ymembers,
            y_med_perc = y_med_sum*100/ymembers,
            y_bad_perc = y_bad_sum*100/ymembers) %>% 
-    mutate(youth_employ = (y_good_perc + 0.5*y_med_perc)/1.5) %>%
+    mutate(youth_employ = (y_good_perc + 0.5*y_med_perc)) %>%
     # Emigration score
     mutate(g1_perc = g1_sum/ymembers*100,
            g2_perc = g2_sum/ymembers*100,
            g3_perc = g3_sum/ymembers*100,
            g4_perc = g4_sum/ymembers*100) %>% 
-    mutate(youth_emigr = (g1_perc + 0.5*g3_perc + 0.5*g4_perc)/2) %>%
+    mutate(youth_emigr = (g1_perc + 0.5*g3_perc + 0.5*g4_perc)) %>%
     # Total youth score
     rowwise() %>%
     mutate(youth_score_female = mean(c(youth_employ , youth_emigr),na.rm = T)) %>%
@@ -1454,7 +1454,7 @@ step2_economy <- function(){
   machine <- machine %>%
     mutate(init_v = mowned * mprice,
            res_v = (init_v/100)*10,
-           depreciation = (init_v - res_v)/(myused/(myused+myplan))) # change of the formula
+           depreciation = (init_v - res_v)*(myused/(myused+myplan))) # change of the formula
   
   machine <- machine %>%
     group_by(key) %>%
